@@ -50,7 +50,7 @@ describe("Tic-Tac-Toe Board tests", () => {
         expect(square).toHaveTextContent("X");
 
     })
-    it("Should declare winner correctly if a line matches fully", () => {
+    it("Should declare winner correctly if a line matches fully for X", () => {
         const board = render(<Board/>);
 
         const squares = board.getAllByTestId("square");
@@ -63,5 +63,19 @@ describe("Tic-Tac-Toe Board tests", () => {
         }
 
         expect(status).toHaveTextContent("Winner: X");
+    })
+    it("Should declare winner correctly if a line matches fully for O", () => {
+        const board = render(<Board/>);
+
+        const squares = board.getAllByTestId("square");
+        const status = board.getByTestId("status");
+
+        const clickIndices = [0, 1, 3, 6, 8, 4, 2, 7];
+
+        for(let index of clickIndices) {
+            fireEvent.click(squares[index]);
+        }
+
+        expect(status).toHaveTextContent("Winner: O");
     })
 });
