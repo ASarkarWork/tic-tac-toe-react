@@ -1,4 +1,3 @@
-import logo from './logo.svg';
 import './App.css';
 import { useState } from 'react';
 
@@ -93,7 +92,7 @@ export default function Game() {
   function jumpTo(nextMove) {
     setCurrentMove(nextMove);
   }
-  const moves = history.map((squares, move)=> {
+  const moves = history.map((_squares, move)=> {
     let description;
     if(move > 0) {
       description = "Go to move #" + move;
