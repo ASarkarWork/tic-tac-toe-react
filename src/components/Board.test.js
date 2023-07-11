@@ -15,4 +15,13 @@ describe("Tic-Tac-Toe Board tests", () => {
         
         expect(squares.length).toEqual(9);
     })
+    it("Should write X when clicking square", () => {
+        const board = render(<Board/>);
+
+        const square = board.getAllByTestId("square")[0];
+
+        fireEvent.click(square);
+
+        expect(square).toHaveTextContent("X");
+    })
 });
