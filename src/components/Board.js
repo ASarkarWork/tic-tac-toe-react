@@ -5,6 +5,15 @@ export default function Board() {
     const [XisNext, setXisNext] = useState(true);
     const [squares, setSquares] = useState(Array(9).fill(null));
 
+    let winner = null;
+    let status;
+
+    if(winner) {
+      status = "Winner: " + winner;
+    } else {
+      status = "Next player: " + (XisNext ? "X": "O");
+    }
+
     function handleClick(index) {
 
         let newSquares = squares.slice();
@@ -15,11 +24,11 @@ export default function Board() {
         }
 
         setSquares(newSquares);
-        setXisNext(XisNext);
+        setXisNext(!XisNext);
     }
     return (
     <>
-    {/* <div className="status">{status}</div> */}
+    <div data-testid ="status" className="status">{status}</div>
     <div data-testid="board-row" className="board-row">
       <Square squareClick = {() => handleClick(0)} value={squares[0]}/>
       <Square squareClick = {() => handleClick(1)} value={squares[1]}/>
