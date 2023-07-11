@@ -5,7 +5,31 @@ export default function Board() {
     const [XisNext, setXisNext] = useState(true);
     const [squares, setSquares] = useState(Array(9).fill(null));
 
-    let winner = null;
+    function checkWinner() {
+        const lines = [
+          [0, 1, 2],
+          [3, 4, 5],
+          [6, 7, 8],
+          [0, 3, 6],
+          [1, 4, 7],
+          [2, 5, 8],
+          [0, 4, 8],
+          [2, 4, 6]
+        ];
+    
+        for(const lineIndices of lines) {
+            const first = squares[lineIndices[0]];
+            const second = squares[lineIndices[1]];
+            const third = squares[lineIndices[2]];
+    
+            if(first && first == second && first == third)
+              return first;
+        }
+    
+        return null;
+    }
+
+    let winner = checkWinner();
     let status;
 
     if(winner) {
@@ -15,6 +39,9 @@ export default function Board() {
     }
 
     function handleClick(index) {
+        if(squares[index] || checkWinner()) {
+            return;
+        }
 
         let newSquares = squares.slice();
         if(XisNext) {

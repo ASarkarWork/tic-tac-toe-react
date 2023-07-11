@@ -36,4 +36,32 @@ describe("Tic-Tac-Toe Board tests", () => {
 
         expect(status).toHaveTextContent("Next player: O");
     })
+    it("Should not allow overwriting square after move", () => {
+        const board = render(<Board/>);
+
+        const square = board.getAllByTestId("square")[0];
+        
+        fireEvent.click(square);
+
+        expect(square).toHaveTextContent("X");
+
+        fireEvent.click(square);
+        
+        expect(square).toHaveTextContent("X");
+
+    })
+    it("Should declare winner correctly if a line matches fully", () => {
+        const board = render(<Board/>);
+
+        const squares = board.getAllByTestId("square");
+        const status = board.getByTestId("status");
+
+        const clickIndices = [0, 3, 4, 2, 8];
+
+        for(let index of clickIndices) {
+            fireEvent.click(squares[index]);
+        }
+
+        expect(status).toHaveTextContent("Winner: X");
+    })
 });
